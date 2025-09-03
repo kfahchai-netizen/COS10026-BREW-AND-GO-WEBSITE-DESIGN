@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members - Chai Kean Fah - Brew & Go</title>
+    <style>
+        /*
+          Brew & Go Website - Team Members Page (Chai Kean Fah Profile)
+          - Personal profile with required formatting
+          - Updated header and footer based on registration.html
+          - Adjusted image size for better fit
+        */
+
+        /* --- 1. Global Settings & Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap');
+        :root {
+            --primary-brown: #705446;
+            --dark-text: #333;
+            --light-text: #e0d9d4;
+            --background-white: #ffffff;
+            --background-light-gray: #f8f8f8;
+            --footer-bg: #4a3831;
+            --border-color: #d0c9c0;
+            --pink-banner: #f8d8e7;
+            --heading-font: 'Lora', serif;
+            --body-font: 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--background-light-gray);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* --- 2. Header & Navigation (Updated from registration.html) --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-brown);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links .active a::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-brown);
+            color: var(--background-white);
+            border-color: var(--primary-brown);
+        }
+
+        .btn-primary:hover {
+            background-color: #5a4336;
+            border-color: #5a4336;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--dark-text);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--background-light-gray);
+            border-color: #ccc;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 0;
+            list-style: none;
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f8;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- 3. Team Member Profile Content --- */
+        .profile-section {
+            padding: 60px 0;
+            background-color: var(--background-white);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 60px;
+        }
+
+        .profile-content {
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 200%; /* REQUIRED: 200% */
+            font-weight: bold; /* REQUIRED: Bold */
+            text-align: center; /* REQUIRED: Centered */
+            margin-bottom: 1rem;
+        }
+
+        .profile-student-id {
+            font-family: Arial, sans-serif; /* REQUIRED: Arial or sans-serif */
+            margin-bottom: 1rem;
+        }
+
+        .profile-course {
+            color: rgb(112, 84, 70); /* REQUIRED: RGB value (matching primary brown) */
+            margin-bottom: 2rem;
+        }
+
+        .profile-photo {
+            float: left; /* REQUIRED: Floating */
+            margin-right: 20px;
+            margin-bottom: 20px;
+            border: 10px groove var(--border-color); /* REQUIRED: Groove border with 20px padding (border width 10px for groove effect) */
+            padding: 10px; /* Additional padding inside groove */
+        }
+
+        .profile-photo img {
+            width: 150px; /* ADJUSTED: Smaller width for better fit */
+            height: auto;
+            display: block;
+            border-radius: 4px; /* Added for better appearance */
+        }
+
+        .profile-bio p {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem auto;
+            background-color: #f9f9f9;
+        }
+
+        .profile-table caption {
+            font-weight: bold; /* REQUIRED: Bold */
+            text-align: center; /* REQUIRED: Centered */
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .profile-table th, .profile-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            background-color: #fceeab; /* REQUIRED: Hex background color */
+        }
+
+        .profile-table th {
+            background-color: #e89f7f; /* REQUIRED: Hex background color */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* --- 4. Footer with Email Link (Updated from registration.html) --- */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--light-text);
+            padding: 60px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .email-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-text);
+            transition: all 0.3s ease;
+        }
+
+        /* --- 7. Responsive Design --- */
+        @media (max-width: 1024px) {
+            .profile-photo {
+                float: none;
+                display: block;
+                margin: 0 auto 20px;
+                width: auto;
+            }
+            .profile-content {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Updated from registration.html) --->
+    <header class="main-header">
+        <div class="container main-nav">
+            <a href="index.html" class="logo">Brew & Go</a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Products</a>
+                        <ul class="dropdown-content">
+                            <li><a href="basic-brew.html">Basic Brew</a></li>
+                            <li><a href="artisan-brew.html">Artisan Brew</a></li>
+                            <li><a href="non-coffee.html">Non-Coffee</a></li>
+                            <li><a href="hot-beverages.html">Hot Beverages</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Events</a>
+                        <ul class="dropdown-content">
+                            <li><a href="events-current.html">Current</a></li>
+                            <li><a href="events-coming-soon.html">Coming Soon</a></li>
+                            <li><a href="events-past.html">Past</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="join-us.html">Join Us</a></li>
+                    <li class="active"><a href="enquiry.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="registration.html" class="btn btn-primary">Register</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Team Member Profile Section -->
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-content">
+                    <h1 class="profile-name">Chai Kean Fah</h1>
+                    <p class="profile-student-id">Student ID: 104392468</p>
+                    <p class="profile-course">Major: Electrical and Electronic Engineering</p>
+
+                    <div class="team-grid">
+                        <!-- Team Member 1 -->
+                        <div class="team-member">
+                            <img src="images/selfie.jpg" alt="Chai Kean Fah" class="profile-photo">
+                            <div class="member-info">
+                                
+                    <div class="profile-bio">
+                        <p><strong>Resume:</strong> I am Chai Kean Fah, a dedicated student in Electrical and Electronic Engineering at National University Singapore (NUS). With a passion for technology and innovation, I have developed strong skills in circuit design, programming, and problem-solving through various projects and coursework.</p>
+
+                        <p><strong>Interests:</strong> In my free time, I enjoy tinkering with electronics, building DIY gadgets, and exploring the latest advancements in renewable energy. I also love hiking in nature and reading science fiction novels to fuel my imagination.</p>
+
+                        <p><strong>Other Related Information:</strong> I am an active member of the IEEE student chapter at my university, where I participate in workshops and competitions. My goal is to contribute to sustainable energy solutions in Malaysia through my engineering career.</p>
+                    </div>
+
+                    <table class="profile-table">
+                        <caption>Additional Information</caption>
+                        <tr>
+                            <th>Category</th>
+                            <th>Details</th>
+                        </tr>
+                        <tr>
+                            <td>Demographics</td>
+                            <td>Age: 22, Gender: Male, Nationality: Malaysian</td>
+                        </tr>
+                        <tr>
+                            <td>Hometown</td>
+                            <td>Kuching, Sarawak - A vibrant city known for its rich cultural heritage, delicious local cuisine, and stunning natural surroundings including rivers and rainforests.</td>
+                        </tr>
+                        <tr>
+                            <td>Great Achievement</td>
+                            <td>Winning first place in the NUS Electrical Engineering Innovation Competition for my solar-powered smart home prototype.</td>
+                        </tr>
+                        <tr>
+                            <td>Favorite Books</td>
+                            <td>The Martian by Andy Weir, Neuromancer by William Gibson</td>
+                        </tr>
+                        <tr>
+                            <td>Favorite Music</td>
+                            <td>Electronic music by artists like The Chainsmokers, Progressive house by deadmau5</td>
+                        </tr>
+                        <tr>
+                            <td>Favorite Movies</td>
+                            <td>Inception, The Matrix, Interstellar</td>
+                        </tr>
+                        <tr>
+                            <td>Favorite Games</td>
+                            <td>Cyberpunk 2077, The Witcher 3, Rocket League</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer with Email Link (Updated from registration.html) --->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="team-members.html">Team Members</a></li>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="coffee-culture.html">Coffee Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="enquiry.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="delivery.html">Delivery Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Membership</h4>
+                <ul>
+                    <li><a href="login.html">Member Login</a></li>
+                    <li><a href="login.html">Become a Member</a></li>
+                    <li><a href="benefits.html">Member Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/brewngo.coffee/?hl=en/" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/p/Brew-Go-Coffee-61554234958482/" target="_blank">Facebook</a></li>
+                    <li><a href="http://xhslink.com/n/60i99whSSnU" target="_blank">Xiaohongshu</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

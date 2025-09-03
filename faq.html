@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Brew & Go</title>
+    <style>
+        /* --- 1. Global Settings & Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap');
+        :root {
+            --primary-brown: #705446;
+            --dark-text: #333;
+            --light-text: #e0d9d4;
+            --background-white: #ffffff;
+            --background-light-gray: #f8f8f8;
+            --footer-bg: #4a3831;
+            --border-color: #d0c9c0;
+            --heading-font: 'Lora', serif;
+            --body-font: 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: #f8f3e8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* --- 2. Header & Navigation --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-brown);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links .active a::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-brown);
+            color: var(--background-white);
+            border-color: var(--primary-brown);
+        }
+
+        .btn-primary:hover {
+            background-color: #5a4336;
+            border-color: #5a4336;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--dark-text);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--background-light-gray);
+            border-color: #ccc;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 0;
+            list-style: none;
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f8;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .faq-banner {
+            background-color: #8b4513;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .faq-banner h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        .faq-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .faq-question {
+            background-color: #d2691e;
+            color: white;
+            padding: 1rem;
+            margin: 0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        .faq-question:hover {
+            background-color: #a0522d;
+        }
+        .faq-answer {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer.show {
+            padding: 1rem;
+            max-height: 500px;
+        }
+        
+        /* --- 4. Footer --- */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--light-text);
+            padding: 60px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-text);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            main {
+                padding: 0.5rem;
+            }
+            .faq-question {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container main-nav">
+            <a href="index.html" class="logo">Brew & Go</a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Products</a>
+                        <ul class="dropdown-content">
+                            <li><a href="basic-brew.html">Basic Brew</a></li>
+                            <li><a href="artisan-brew.html">Artisan Brew</a></li>
+                            <li><a href="non-coffee.html">Non-Coffee</a></li>
+                            <li><a href="hot-beverages.html">Hot Beverages</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Events</a>
+                        <ul class="dropdown-content">
+                            <li><a href="events-current.html">Current</a></li>
+                            <li><a href="events-coming-soon.html">Coming Soon</a></li>
+                            <li><a href="events-past.html">Past</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="join-us.html">Join Us</a></li>
+                    <li><a href="enquiry.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="registration.html" class="btn btn-primary">Register</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="faq-banner">
+        <h1>Frequently Asked Questions</h1>
+        <p>Welcome to Brew & Go! Get quick answers to our most common questions.</p>
+    </div>
+
+    <main>
+        <div class="faq-item">
+            <h2 class="faq-question">What is Brew & Go?</h2>
+            <div class="faq-answer">
+                <p>Brew & Go is your go-to spot for freshly brewed coffee, espresso drinks, and quick bites. We focus on quality ingredients and fast service for busy days.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question">What are your operating hours?</h2>
+            <div class="faq-answer">
+                <p>We're open Monday to Friday from 7 AM to 7 PM, and weekends from 8 AM to 6 PM. Check our website or app for any holiday closures.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question">Do you offer vegan or gluten-free options?</h2>
+            <div class="faq-answer">
+                <p>Yes! We have a variety of plant-based milks for lattes and gluten-free pastries. Our menu highlights these options clearly.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question">Can I order online or for delivery?</h2>
+            <div class="faq-answer">
+                <p>Absolutely! Use our website or app to place orders for pickup or delivery within a 5-mile radius. Delivery fees apply and vary by distance.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question">Do you have loyalty programs?</h2>
+            <div class="faq-answer">
+                <p>Yes, join our Brew Club for points on every purchase. Redeem them for free drinks or discounts. Sign up at the counter or online.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question">Is parking available?</h2>
+            <div class="faq-answer">
+                <p>We have limited street parking nearby. For larger groups, consider our drive-thru option for quick service.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h2 class="faq-question">What payment methods do you accept?</h2>
+            <div class="faq-answer">
+                <p>We accept cash, credit cards, and mobile payments like Apple Pay and Google Pay. No checks, please.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="team-members.html">Team Members</a></li>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="coffee-culture.html">Coffee Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="enquiry.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="delivery.html">Delivery Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Membership</h4>
+                <ul>
+                    <li><a href="login.html">Member Login</a></li>
+                    <li><a href="login.html">Become a Member</a></li>
+                    <li><a href="benefits.html">Member Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/brewngo.coffee/?hl=en/" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/p/Brew-Go-Coffee-61554234958482/" target="_blank">Facebook</a></li>
+                    <li><a href="http://xhslink.com/n/60i99whSSnU" target="_blank">Xiaohongshu</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.faq-question');
+            questions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    answer.classList.toggle('show');
+                });
+            });
+
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

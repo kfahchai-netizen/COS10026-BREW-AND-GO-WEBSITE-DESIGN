@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Policy - Brew & Go</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. Global Settings & Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lora:wght@400;700&display=swap');
+        :root {
+            --primary-brown: #705446;
+            --dark-text: #333;
+            --light-text: #e0d9d4;
+            --background-white: #ffffff;
+            --background-light-gray: #f8f8f8;
+            --footer-bg: #4a3831;
+            --border-color: #d0c9c0;
+            --pink-banner: #f8d8e7;
+            --form-bg: #f7f5f3;
+            --heading-font: 'Lora', serif;
+            --body-font: 'Roboto', sans-serif;
+            --policy-background: #f8f3e8; /* Light beige background for policy section */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-image: url('images/background4.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* --- 2. Header & Navigation (From Enquiry Page) --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-brown);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links .active a::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-brown);
+            color: var(--background-white);
+            border-color: var(--primary-brown);
+        }
+
+        .btn-primary:hover {
+            background-color: #5a4336;
+            border-color: #5a4336;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--dark-text);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--background-light-gray);
+            border-color: #ccc;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 0;
+            list-style: none;
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f8;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- 3. Delivery Policy Page Specific Styles --- */
+        .policy-container {
+            background-color: var(--policy-background);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            color: var(--dark-text);
+            margin: 100px auto 40px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .policy-container h1 {
+            margin-bottom: 20px;
+            font-family: var(--heading-font);
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .policy-container h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: var(--primary-brown);
+        }
+
+        .policy-container p {
+            margin-bottom: 15px;
+        }
+
+        .policy-container ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .policy-container li {
+            margin-bottom: 10px;
+        }
+
+        /* --- 4. Footer (From Enquiry Page) --- */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--light-text);
+            padding: 60px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-text);
+            transition: all 0.3s ease;
+        }
+
+        /* --- 7. Responsive Design --- */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--background-white);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                text-align: center;
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 0;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-buttons {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .policy-container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .policy-container h1 {
+                font-size: 1.8rem;
+            }
+
+            .policy-container h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (From Enquiry Page) -->
+    <header class="main-header">
+        <div class="container main-nav">
+            <a href="index.html" class="logo">Brew & Go</a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Products</a>
+                        <ul class="dropdown-content">
+                            <li><a href="basic-brew.html">Basic Brew</a></li>
+                            <li><a href="artisan-brew.html">Artisan Brew</a></li>
+                            <li><a href="non-coffee.html">Non-Coffee</a></li>
+                            <li><a href="hot-beverages.html">Hot Beverages</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Events</a>
+                        <ul class="dropdown-content">
+                            <li><a href="events-current.html">Current</a></li>
+                            <li><a href="events-coming-soon.html">Coming Soon</a></li>
+                            <li><a href="events-past.html">Past</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="join-us.html">Join Us</a></li>
+                    <li class="active"><a href="enquiry.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="registration.html" class="btn btn-primary">Register</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content (Delivery Policy) -->
+    <div class="policy-container">
+        <h1>Delivery Policy</h1>
+        <p>At Brew & Go, we strive to deliver your favorite coffee and treats right to your doorstep with convenience and care. Please review our delivery policy below for all the details.</p>
+
+        <h2>Delivery Areas</h2>
+        <p>We currently offer delivery within a 5-mile radius of our main location at [Insert Address Here]. If you're outside this area, please visit us in-store or contact us for pickup options.</p>
+
+        <h2>Delivery Fees</h2>
+        <p>Delivery fees are calculated based on distance and order size:</p>
+        <ul>
+            <li>Orders under RM50: RM15.99 delivery fee</li>
+            <li>Orders RM50-RM100: RM3.99 delivery fee</li>
+            <li>Orders over RM100: Free delivery</li>
+        </ul>
+        <p>Fees may vary during peak hours or holidays.</p>
+
+        <h2>Delivery Times</h2>
+        <p>Our standard delivery window is 30-60 minutes from order placement. During busy periods (e.g., mornings or weekends), it may take up to 90 minutes. We aim to provide accurate ETAs via our app or website.</p>
+
+        <h2>Minimum Order</h2>
+        <p>There is no minimum order requirement for delivery, but please note that smaller orders may incur higher delivery fees.</p>
+
+        <h2>Order Tracking</h2>
+        <p>You can track your order in real-time through our app or website. We'll send updates on preparation and delivery status.</p>
+
+        <h2>Special Instructions</h2>
+        <p>If you have specific delivery instructions (e.g., leave at door, call upon arrival), please add them to your order notes. We appreciate any details to ensure a smooth delivery.</p>
+
+        <h2>Cancellations and Refunds</h2>
+        <p>Orders can be canceled within 10 minutes of placement for a full refund. Once prepared, cancellations may not be possible, but we'll work with you for future credits. Refunds for damaged or incorrect items will be processed promptly.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions about our delivery policy or need assistance with an order, please reach out via our contact form or call us at [Insert Phone Number Here]. We're here to help!</p>
+    </div>
+
+    <!-- Footer (From Enquiry Page) -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="team-members.html">Team Members</a></li>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="coffee-culture.html">Coffee Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="enquiry.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="delivery.html">Delivery Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Membership</h4>
+                <ul>
+                    <li><a href="login.html">Member Login</a></li>
+                    <li><a href="login.html">Become a Member</a></li>
+                    <li><a href="benefits.html">Member Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/brewngo.coffee/?hl=en/" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/p/Brew-Go-Coffee-61554234958482/" target="_blank">Facebook</a></li>
+                    <li><a href="http://xhslink.com/n/60i99whSSnU" target="_blank">Xiaohongshu</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

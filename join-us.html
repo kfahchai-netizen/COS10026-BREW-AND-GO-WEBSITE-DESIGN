@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Brew & Go</title>
+    <style>
+        /* --- 1. Global Settings & Variables --- */
+        :root {
+            --primary-brown: #705446;
+            --dark-text: #333;
+            --light-text: #e0d9d4;
+            --background-white: #ffffff;
+            --background-light-gray: #f8f8f8;
+            --footer-bg: #4a3831;
+            --border-color: #e0e0e0;
+            --mint-banner: #b2f5c3; /* Mint green banner */
+            --pink-card: #f8d8e7;   /* Barista card */
+            --yellow-card: #ffd817; /* Assistant Manager card */
+            --green-card: #c9f984;  /* Marketing Coordinator card */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--background-white);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* --- 2. Header & Navigation --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-brown);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links .active a::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-brown);
+            color: var(--background-white);
+            border-color: var(--primary-brown);
+        }
+
+        .btn-primary:hover {
+            background-color: #5a4336;
+            border-color: #5a4336;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--dark-text);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--background-light-gray);
+            border-color: #ccc;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 0;
+            list-style: none;
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 400;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f8;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- 3. Page Title & Content --- */
+        .page-title-container {
+            background-color: var(--mint-banner);
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--dark-text);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .section-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 60px 0;
+        }
+
+        .position-list {
+            background-color: var(--background-white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .position-list h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .position-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Barista Card */
+        .barista {
+            background-color: var(--pink-card);
+            color: var(--dark-text);
+        }
+
+        /* Assistant Manager Card */
+        .assistant-manager {
+            background-color: var(--yellow-card);
+            color: var(--dark-text);
+        }
+
+        /* Marketing Coordinator Card */
+        .marketing-coordinator {
+            background-color: var(--green-card);
+            color: var(--dark-text);
+        }
+
+        .position-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .position-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .position-description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0.8rem;
+        }
+
+        .position-salary {
+            font-size: 0.9rem;
+            color: var(--primary-brown);
+            font-weight: 500;
+        }
+
+        .apply-form {
+            background-color: var(--background-white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .form-file {
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-brown);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #5a4336;
+        }
+
+        /* --- 4. Footer --- */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--light-text);
+            padding: 60px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-text);
+            transition: all 0.3s ease;
+        }
+
+        /* --- 7. Responsive Design --- */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--background-white);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                text-align: center;
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 0;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-buttons {
+                display: none;
+            }
+
+            .section-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container main-nav">
+            <a href="index.html" class="logo">Brew & Go</a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Products</a>
+                        <ul class="dropdown-content">
+                            <li><a href="basic-brew.html">Basic Brew</a></li>
+                            <li><a href="artisan-brew.html">Artisan Brew</a></li>
+                            <li><a href="non-coffee.html">Non-Coffee</a></li>
+                            <li><a href="hot-beverages.html">Hot Beverages</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Events</a>
+                        <ul class="dropdown-content">
+                            <li><a href="events-current.html">Current</a></li>
+                            <li><a href="events-coming-soon.html">Coming Soon</a></li>
+                            <li><a href="events-past.html">Past</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="#">Join Us</a></li>
+                    <li><a href="enquiry.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="registration.html" class="btn btn-primary">Register</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-title-container">
+            <h1 class="page-title">Join Our Team</h1>
+        </div>
+
+        <section class="container section-container">
+            <!-- Available Positions -->
+            <div class="position-list">
+                <h2>Available Positions</h2>
+
+                <div class="position-item barista">
+                    <h3 class="position-title">Barista</h3>
+                    <p class="position-description">Prepare and serve high-quality coffee beverages, maintain cleanliness of the café, and provide excellent customer service to create a welcoming atmosphere.</p>
+                    <p class="position-salary">RM 1,800 - RM 2,500</p>
+                </div>
+
+                <div class="position-item assistant-manager">
+                    <h3 class="position-title">Assistant Manager</h3>
+                    <p class="position-description">Oversee daily operations, manage staff, handle inventory, and ensure compliance with health and safety standards while promoting a positive work environment.</p>
+                    <p class="position-salary">RM 3,000 - RM 4,200</p>
+                </div>
+
+                <div class="position-item marketing-coordinator">
+                    <h3 class="position-title">Marketing Coordinator</h3>
+                    <p class="position-description">Develop and execute marketing campaigns, manage social media presence, analyze customer data, and collaborate with the team to increase brand awareness.</p>
+                    <p class="position-salary">RM 2,500 - RM 3,500</p>
+                </div>
+            </div>
+
+            <!-- Apply Now Form -->
+            <div class="apply-form">
+                <h2>Apply Now</h2>
+
+                <form id="applicationForm" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" maxlength="25" pattern="[A-Za-z\s]+" title="First Name must contain only letters and spaces, up to 25 characters." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-input" maxlength="25" pattern="[A-Za-z\s]+" title="Last Name must contain only letters and spaces, up to 25 characters." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" id="address" name="address" class="form-input" placeholder="Street Address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city" class="form-label">City/Town</label>
+                        <input type="text" id="city" name="city" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state" class="form-label">State</label>
+                        <select id="state" name="state" class="form-select" required>
+                            <option value="">Select State</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Malacca">Malacca</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Penang">Penang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Wilayah Persekutuan Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Wilayah Persekutuan Labuan">Labuan</option>
+                            <option value="Wilayah Persekutuan Putrajaya">Putrajaya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postalCode" class="form-label">Postal Code</label>
+                        <input type="text" id="postalCode" name="postalCode" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g., 0123456789" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resume" class="form-label">Resume Upload</label>
+                        <input type="file" id="resume" name="resume" class="form-file" accept=".pdf,.doc,.docx" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo" class="form-label">Photo Upload</label>
+                        <input type="file" id="photo" name="photo" class="form-file" accept="image/*" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="team-members.html">Team Members</a></li>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="coffee-culture.html">Coffee Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="enquiry.html">Contact Us</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="delivery.html">Delivery Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Membership</h4>
+                <ul>
+                    <li><a href="login.html">Member Login</a></li>
+                    <li><a href="login.html">Become a Member</a></li>
+                    <li><a href="benefits.html">Member Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <ul>
+                <li><a href="https://www.instagram.com/brewngo.coffee/?hl=en/" target="_blank">Instagram</a></li>
+                <li><a href="https://www.facebook.com/p/Brew-Go-Coffee-61554234958482/" target="_blank">Facebook</a></li>
+                <li><a href="http://xhslink.com/n/60i99whSSnU" target="_blank">Xiaohongshu</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!-- Form Validation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('applicationForm');
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+
+            form.addEventListener('submit', function(event) {
+                let isValid = true;
+                let errorMessage = '';
+
+                // Validate First Name
+                if (!/^[A-Za-z\s]+$/.test(firstName.value) || firstName.value.length > 25) {
+                    isValid = false;
+                    errorMessage += 'First Name must contain only letters and spaces, up to 25 characters.\n';
+                }
+
+                // Validate Last Name
+                if (!/^[A-Za-z\s]+$/.test(lastName.value) || lastName.value.length > 25) {
+                    isValid = false;
+                    errorMessage += 'Last Name must contain only letters and spaces, up to 25 characters.\n';
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                    alert(errorMessage);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
