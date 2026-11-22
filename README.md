@@ -47,7 +47,7 @@
 No build step and nothing to install.
 
 ```bash
-git clone https://github.com/kfahchai-netizen/COS10026-BREW-AND-GO-WEBSITE-DESIGN.git
+git clone https://github.com/kfahchai/COS10026-BREW-AND-GO-WEBSITE-DESIGN.git
 cd COS10026-BREW-AND-GO-WEBSITE-DESIGN
 # then open index.html in your browser
 ```
